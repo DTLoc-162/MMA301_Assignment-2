@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+import LittleLemonHeader from "./components/LittleLemonHeader";
+import LittleLemonFooter from "./components/LittleLemonFooter";
+import MenuItems from "./components/MenuItems";
+import Login from "./components/Login";
+
+const Stack = createStackNavigator();
+function MenuItemsScreen() {
+  return (
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Login"
+        component={Login}
+      />
+      <Stack.Screen name="MenuItems" component={MenuItems} />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <LittleLemonHeader />
+      <View style={styles.container}>
+        <MenuItemsScreen />
+      </View>
+      <View style={styles.footerContainer}>
+        <LittleLemonFooter />
+      </View>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  footerContainer: { backgroundColor: "#333333" },
 });
